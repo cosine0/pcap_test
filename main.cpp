@@ -13,11 +13,12 @@
 
 void hexdump(const u_char* data, size_t size)
 {
-    size_t line_count = size / 16;
-    size_t last_line = size % 16;
+    const size_t LINE_WIDTH = 16;
+    size_t line_count = size / LINE_WIDTH;
+    size_t last_line = size % LINE_WIDTH;
     for (int i = 0; i < line_count; ++i)
     {
-        for (int j = 0; j < 16; ++j)
+        for (int j = 0; j < LINE_WIDTH; ++j)
             printf("%02x ", *(data++));
         printf("\n");
     }
