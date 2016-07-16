@@ -62,9 +62,12 @@ void got_packet(u_char *args, const pcap_pkthdr *header,
     const u_char* ip_start = ethernet_start + sizeof(ether_header);
     const ip* ip_packet = (ip*)ip_start;
 
-    // ip address
-    printf("src ip  : %17s", inet_ntoa(ip_packet->ip_src));
-    printf(", dst ip  : %17s\n", inet_ntoa(ip_packet->ip_dst));
+    // ip addresses
+    char ip_string[17];
+    inet_ntop(AF_INET, &ip_packet->ip_src.s_addr, ip_string, sizeof(ip_string));
+    printf("src ip  : %17s", ip_string);
+    inet_ntop(AF_INET, &ip_packet->ip_src.s_addr, ip_string, sizeof(ip_string));
+    printf(", dst ip  : %17s\n", ip_string);
 
     // ip protocol
     if (ip_packet->ip_p != IPPROTO_TCP)
